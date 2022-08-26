@@ -5,11 +5,16 @@ name: Stage Pipeline
 on:  
   push:
     branches: ['uat']
+    paths-ignore:
+      - './github/workflows/dev.yml'
+      - './github/workflows/sit.yml'
+      - './github/workflows/stage.yml'
+        
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs: 
-  sit-sync-deploy-verify-job:  
+  uat-sync-deploy-verify-job:  
     uses:  ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: uat
