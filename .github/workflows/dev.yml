@@ -8,6 +8,10 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: ['dev']
+    paths-ignore:
+      - './github/workflows/sit.yml'
+      - './github/workflows/uat.yml'
+      - './github/workflows/stage.yml'
      
  
 
@@ -23,22 +27,3 @@ jobs:
       BRANCH: dev
       PIPELINEID: "1234-dev"
       SHOULD_TRIGGER_PIPELINE: false
-      
-#   sit-sync-deploy-verify-job:
-#     if: github.ref == 'refs/heads/sit'
-#     uses:  ./.github/workflows/sync-deploy-verify.yml
-#     with:
-#       BRANCH: sit
-#       PIPELINEID: "1234-sit"
-#       SHOULD_TRIGGER_PIPELINE: false
-      
-#   stage-sync-deploy-verify-job:
-#     if: github.ref == 'refs/heads/stage'
-#     uses: ./.github/workflows/sync-deploy-verify.yml
-#     with:
-#       BRANCH: stage
-#       PIPELINEID: "1234-sit"
-#       SHOULD_TRIGGER_PIPELINE: true
-      
-  
-      
