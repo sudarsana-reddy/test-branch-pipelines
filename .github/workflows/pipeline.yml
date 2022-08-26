@@ -19,7 +19,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   dev-sync-deploy-verify-job:
-    if: github.ref == 'refs/geads/dev'
+    if: github.ref == 'refs/heads/dev'
     uses: ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: dev
@@ -27,7 +27,7 @@ jobs:
       SHOULD_TRIGGER_PIPELINE: false
       
   sit-sync-deploy-verify-job:
-    if: github.ref == 'refs/geads/sit'
+    if: github.ref == 'refs/heads/sit'
     uses:  ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: sit
@@ -35,7 +35,7 @@ jobs:
       SHOULD_TRIGGER_PIPELINE: false
       
   stage-sync-deploy-verify-job:
-    if: github.ref == 'refs/geads/stage'
+    if: github.ref == 'refs/heads/stage'
     uses: ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: stage
