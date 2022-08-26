@@ -8,8 +8,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs: 
-  sit-sync-deploy-verify-job:
-    if: github.ref == 'refs/heads/sit'
+  sit-sync-deploy-verify-job:  
     uses:  ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: sit
