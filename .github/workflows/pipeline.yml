@@ -19,21 +19,21 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   dev-sync-deploy-verify-job:
-    uses: ./.github/workflows/sync-job.yml
+    uses: ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: dev
       PIPELINEID: "1234-dev"
       SHOULD_TRIGGER_PIPELINE: false
       
   sit-sync-deploy-verify-job:
-    uses: ./.github/workflows/sync-job.yml
+    uses:  ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: sit
       PIPELINEID: "1234-sit"
       SHOULD_TRIGGER_PIPELINE: false
       
-   stage-sync-deploy-verify-job:
-    uses: ./.github/workflows/sync-job.yml
+  stage-sync-deploy-verify-job:
+    uses: ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: stage
       PIPELINEID: "1234-sit"
