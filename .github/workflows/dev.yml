@@ -7,9 +7,8 @@ name: Stage Pipeline
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: 
-      - '*'
-      - '!main'
+    branches: ['dev']
+     
  
 
   # Allows you to run this workflow manually from the Actions tab
@@ -18,29 +17,28 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  dev-sync-deploy-verify-job:
-    if: github.ref == 'refs/heads/dev'
+  dev-sync-deploy-verify-job:   
     uses: ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: dev
       PIPELINEID: "1234-dev"
       SHOULD_TRIGGER_PIPELINE: false
       
-  sit-sync-deploy-verify-job:
-    if: github.ref == 'refs/heads/sit'
-    uses:  ./.github/workflows/sync-deploy-verify.yml
-    with:
-      BRANCH: sit
-      PIPELINEID: "1234-sit"
-      SHOULD_TRIGGER_PIPELINE: false
+#   sit-sync-deploy-verify-job:
+#     if: github.ref == 'refs/heads/sit'
+#     uses:  ./.github/workflows/sync-deploy-verify.yml
+#     with:
+#       BRANCH: sit
+#       PIPELINEID: "1234-sit"
+#       SHOULD_TRIGGER_PIPELINE: false
       
-  stage-sync-deploy-verify-job:
-    if: github.ref == 'refs/heads/stage'
-    uses: ./.github/workflows/sync-deploy-verify.yml
-    with:
-      BRANCH: stage
-      PIPELINEID: "1234-sit"
-      SHOULD_TRIGGER_PIPELINE: true
+#   stage-sync-deploy-verify-job:
+#     if: github.ref == 'refs/heads/stage'
+#     uses: ./.github/workflows/sync-deploy-verify.yml
+#     with:
+#       BRANCH: stage
+#       PIPELINEID: "1234-sit"
+#       SHOULD_TRIGGER_PIPELINE: true
       
   
       
