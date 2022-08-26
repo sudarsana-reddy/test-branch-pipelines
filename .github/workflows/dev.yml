@@ -20,5 +20,5 @@ jobs:
     uses: ./.github/workflows/build-deploy-verify.yml
     with:
       BRANCH: dev
-      PIPELINEID: "123"
+      PIPELINEID: "123-dev"
       SHOULD_TRIGGER_PIPELINE: true
