@@ -1,0 +1,54 @@
+name: Sync Job
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      BRANCH:
+        description: "branch name"
+        type: string
+        
+      PIPELINEID:
+        description: "Pipeline id to track status"
+        type: string        
+      
+      SHOULD_TRIGGER_PIPELINE:
+        description: "shoudl trigger a new deployment"
+        type: string    
+      
+ 
+jobs:
+  SyncJob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sync job
+        run: |
+          echo "sync job is done for ${{ inputs.BRANCH }}"
+          
+      - name: notiofication
+        run: |
+          echo "notiofication is done. Status: ${{ job.status }}" 
+          
+  DeployJob:
+    needs: [SyncJob]
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        run: |
+          echo "PIPELINEID: ${{ inputs.PIPELINEID}} && SHOULD_TRIGGER_PIPELINE: ${{ inputs.SHOULD_TRIGGER_PIPELINE }}"
+          
+      - name: notiofication
+        run: |
+          echo "notiofication is done. Status: ${{ job.status }}"
+          
+  Verify:
+    needs: [DeployJob]
+    runs-on: ubuntu-latest
+    steps:
+      - name: verify
+        run: |
+          echo "verified"
+          
+      - name: notiofication
+        run: |
+          echo "notiofication is done. Status: ${{ job.status }}"
