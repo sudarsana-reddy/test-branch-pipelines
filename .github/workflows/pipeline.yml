@@ -7,9 +7,10 @@ name: Stage Pipeline
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "stage" ]
-  pull_request:
-    branches: [ "stage" ]
+    branches: 
+      - '*'
+      - '!main'
+ 
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -17,9 +18,26 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
-    uses: ./.github/workflows/build-deploy-verify.yml
+  dev-sync-deploy-verify-job:
+    uses: ./.github/workflows/sync-job.yml
+    with:
+      BRANCH: dev
+      PIPELINEID: "1234-dev"
+      SHOULD_TRIGGER_PIPELINE: false
+      
+  sit-sync-deploy-verify-job:
+    uses: ./.github/workflows/sync-job.yml
+    with:
+      BRANCH: sit
+      PIPELINEID: "1234-sit"
+      SHOULD_TRIGGER_PIPELINE: false
+      
+   stage-sync-deploy-verify-job:
+    uses: ./.github/workflows/sync-job.yml
     with:
       BRANCH: stage
-      PIPELINEID: "123-stage"
+      PIPELINEID: "1234-sit"
       SHOULD_TRIGGER_PIPELINE: true
+      
+  
+      
