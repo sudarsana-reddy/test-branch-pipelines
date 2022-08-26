@@ -21,4 +21,4 @@ jobs:
     with:
       BRANCH: dev
       PIPELINEID: "123-dev"
-      SHOULD_TRIGGER_PIPELINE: true
+      SHOULD_TRIGGER_PIPELINE: false
