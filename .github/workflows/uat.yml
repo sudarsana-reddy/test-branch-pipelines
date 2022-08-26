@@ -1,0 +1,25 @@
+
+name: Stage Pipeline
+
+# Controls when the workflow will run
+on:  
+  push:
+    branches: ['uat']
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs: 
+  sit-sync-deploy-verify-job:  
+    uses:  ./.github/workflows/sync-deploy-verify.yml
+    with:
+      BRANCH: uat
+      PIPELINEID: "1234-uat"
+      SHOULD_TRIGGER_PIPELINE: false
+      
+#   stage-sync-deploy-verify-job:
+#     if: github.ref == 'refs/heads/stage'
+#     uses: ./.github/workflows/sync-deploy-verify.yml
+#     with:
+#       BRANCH: stage
+#       PIPELINEID: "1234-sit"
+#       SHOULD_TRIGGER_PIPELINE: true
