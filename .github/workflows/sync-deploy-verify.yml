@@ -1,6 +1,5 @@
-name: Sync Job
+name: sync-deploy-verify
 
-# Controls when the workflow will run
 on:
   workflow_call:
     inputs:
