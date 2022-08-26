@@ -1,0 +1,36 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      BRANCH:
+        description: "branch name"
+        type: string
+        
+       PIPELINEID:
+        description: "Pipeline id to track status"
+        type: string        
+      
+       SHOULD_TRIGGER_PIPELINE:
+        description: "shoudl trigger a new deployment"
+        type: string       
+      
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sync job
+        run: |
+          echo "sync job is done for ${{ github.ref }}"
+       
+      - name: create story board
+        if: ${{ inputs.BRANCH }} == "dev"
+        run: echo "should run only when the branch is dev"
+        
+      - name: deploy
+        if:  ${{ inputs.BRANCH }} != "stage" && ${{ inputs.BRANCH }} != "main"
+        run: |  
+          echo "deploying with ${{ inputs.PIPELINEID }} AND ${{ inputs.SHOULD_TRIGGER_PIPELINE }}"
+  
