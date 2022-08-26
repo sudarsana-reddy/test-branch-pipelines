@@ -25,6 +25,11 @@ jobs:
         run: |
           echo "sync job is done for ${{ inputs.BRANCH }}"
           
+      - name: story board task
+        if: ${{ inputs.BRANCH == "dev" }}
+        run: |
+          echo "Should run only for Dev"
+          
       - name: notiofication
         run: |
           echo "notiofication is done. Status: ${{ job.status }}" 
