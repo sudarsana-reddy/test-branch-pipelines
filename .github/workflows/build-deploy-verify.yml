@@ -8,11 +8,11 @@ on:
         description: "branch name"
         type: string
         
-       PIPELINEID:
+      PIPELINEID:
         description: "Pipeline id to track status"
         type: string        
       
-       SHOULD_TRIGGER_PIPELINE:
+      SHOULD_TRIGGER_PIPELINE:
         description: "shoudl trigger a new deployment"
         type: string       
       
