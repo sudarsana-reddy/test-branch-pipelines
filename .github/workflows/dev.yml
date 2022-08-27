@@ -2,7 +2,7 @@ name: Dev Pipeline
 
 on:
   push:
-    branches: ['dev']  
+    branches: ['dev', 'sit', 'uat', 'stage']  
   workflow_dispatch:
 
 jobs:
