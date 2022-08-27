@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: deploy
         run: |
-          echo "PIPELINEID: ${{ secrets[format('{0}_PIPELINEID', ${{ inputs.BRANCH }})}} && SHOULD_TRIGGER_PIPELINE: ${{ inputs.SHOULD_TRIGGER_PIPELINE }}"
+          echo "PIPELINEID: ${{ secrets[format('{0}_PIPELINEID', ${{ inputs.BRANCH }} )] }} && SHOULD_TRIGGER_PIPELINE: ${{ inputs.SHOULD_TRIGGER_PIPELINE }}"
           
       - name: notiofication
         run: |
