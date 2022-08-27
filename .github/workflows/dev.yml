@@ -7,9 +7,30 @@ on:
 
 
 jobs:
-  dev-sync-deploy-verify-job:   
+  initVariables:
+    id: initVariables
+    runs-on: ubuntu-latest
+    outputs:
+      PIPELINEID: ${{ steps.setvariables.outputs.PIPELINEID }}
+
+    steps:
+      - name: Set Variables
+        id: setvariables
+        run: |
+          if [[ "${{ github.base_ref }}" == "dev" ]]; then
+            echo "::set-output name=PIPELINEID::${{ secrets.DEV_PIPELINEID}}"
+          else if [[ "${{ github.base_ref }}" == "sit" ]]; then
+            echo "::set-output name=PIPELINEID::${{ secrets.SIT_PIPELINEID}}"
+          else if [[ "${{ github.base_ref }}" == "uat" ]]; then
+            echo "::set-output name=PIPELINEID::${{ secrets.UAT_PIPELINEID}}"
+          else if [[ "${{ github.base_ref }}" == "stage" ]]; then
+            echo "::set-output name=PIPELINEID::${{ secrets.STAGE_PIPELINEID}}"
+          fi
+          
+  dev-sync-deploy-verify-job: 
+    needs: [initVariables]  
     uses: ./.github/workflows/sync-deploy-verify.yml
     with:
-      BRANCH: dev
-      PIPELINEID: ${{ secrtes.DEV_PIPELINEID }}
+      BRANCH: ${{ github.base_ref }}
+      PIPELINEID: ${{ needs.initVariables.outputs.PIPELINEID }}
       SHOULD_TRIGGER_PIPELINE: false
