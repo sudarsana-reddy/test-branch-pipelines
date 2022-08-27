@@ -35,7 +35,7 @@ jobs:
           echo "::set-output name=VERIFY_URL::http://stage.com"
         fi
           
-  dev-sync-deploy-verify-job: 
+  sync-deploy-verify-job: 
     needs: [initJob]  
     uses: ./.github/workflows/sync-deploy-verify.yml
     with:
