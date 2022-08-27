@@ -6,14 +6,17 @@ on:
       BRANCH:
         description: "branch name"
         type: string
-        
-      # PIPELINEID:
-      #   description: "Pipeline id to track status"
-      #   type: string        
+        required: true
       
       SHOULD_TRIGGER_PIPELINE:
         description: "shoudl trigger a new deployment"
-        type: string    
+        type: string
+        required: true
+      
+      VERIFY_URL:
+        description: "Post deploy verify url"
+        type: string 
+        required: true
       
  
 jobs:
@@ -41,9 +44,9 @@ jobs:
         run: |
           echo "PIPELINEID: ${{ secrets[format('{0}_PIPELINEID', inputs.BRANCH)] }} && SHOULD_TRIGGER_PIPELINE: ${{ inputs.SHOULD_TRIGGER_PIPELINE }}"
           
-      - name: notiofication
+      - name: notification
         run: |
-          echo "notiofication is done. Status: ${{ job.status }}"
+          echo "notification is done. Status: ${{ job.status }}"
           
   Verify:
     needs: [DeployJob]
@@ -51,8 +54,8 @@ jobs:
     steps:
       - name: verify
         run: |
-          echo "verified"
+          echo "verify url: ${{ inouts.VERIFY_URL }}"
           
-      - name: notiofication
+      - name: notification
         run: |
           echo "notiofication is done. Status: ${{ job.status }}"
