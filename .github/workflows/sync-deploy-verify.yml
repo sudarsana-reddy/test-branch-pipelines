@@ -54,7 +54,7 @@ jobs:
     steps:
       - name: verify
         run: |
-          echo "verify url: ${{ inouts.VERIFY_URL }}"
+          echo "verify url: ${{ inputs.VERIFY_URL }}"
           
       - name: notification
         run: |
