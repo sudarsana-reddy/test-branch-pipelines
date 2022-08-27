@@ -12,7 +12,7 @@ jobs:
     outputs:
       SHOULD_TRIGGER_PIPELINE: ${{ steps.initVars.outputs.SHOULD_TRIGGER_PIPELINE}}
       BRANCH: ${{steps.initVars.outputs.BRANCH}}
-      VERIFY_URL: ${{}}
+      VERIFY_URL: ${{steps.initVars.outputs.VERIFY_URL}}
     steps:
     - name: initalize Inputs
       id: initVars
