@@ -10,8 +10,8 @@ on:
       
       SHOULD_TRIGGER_PIPELINE:
         description: "shoudl trigger a new deployment"
-        type: string
-        required: true
+        type: boolean
+        required: true        
       
       VERIFY_URL:
         description: "Post deploy verify url"
