@@ -16,13 +16,13 @@ jobs:
       - name: Set Variables
         id: setvariables
         run: |
-          if [[ "${{ github.base_ref }}" == "dev" ]]; then
+          if [[ "${{ github.ref }}" == "*dev" ]]; then
             echo "::set-output name=PIPELINEID::${{ secrets.DEV_PIPELINEID}}"
-          else if [[ "${{ github.base_ref }}" == "sit" ]]; then
+          else if [[ "${{ github.base_ref }}" == "*sit" ]]; then
             echo "::set-output name=PIPELINEID::${{ secrets.SIT_PIPELINEID}}"
-          else if [[ "${{ github.base_ref }}" == "uat" ]]; then
+          else if [[ "${{ github.base_ref }}" == "*uat" ]]; then
             echo "::set-output name=PIPELINEID::${{ secrets.UAT_PIPELINEID}}"
-          else if [[ "${{ github.base_ref }}" == "stage" ]]; then
+          else if [[ "${{ github.base_ref }}" == "*stage" ]]; then
             echo "::set-output name=PIPELINEID::${{ secrets.STAGE_PIPELINEID}}"
           fi
           
@@ -30,6 +30,6 @@ jobs:
     needs: [initVariables]  
     uses: ./.github/workflows/sync-deploy-verify.yml
     with:
-      BRANCH: ${{ github.base_ref }}
+      BRANCH: dev
       PIPELINEID: ${{ needs.initVariables.outputs.PIPELINEID }}
       SHOULD_TRIGGER_PIPELINE: false
