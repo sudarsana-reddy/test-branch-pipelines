@@ -11,5 +11,5 @@ jobs:
     uses: ./.github/workflows/sync-deploy-verify.yml
     with:
       BRANCH: dev
-      PIPELINEID: "1234-dev"
+      PIPELINEID: ${{ secrtes.DEV_PIPELINEID }}
       SHOULD_TRIGGER_PIPELINE: false
