@@ -7,24 +7,11 @@ on:
 
 
 jobs:
-  # initVariables:    
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     PIPELINEID: ${{ steps.setvariables.outputs.PIPELINEID }}
 
-  #   steps:
-  #     - name: Set Variables
-  #       id: setvariables
-  #       run: |
-  #         if [[ "${{ github.ref }}" == *"dev" ]]; then
-  #           echo "::set-output name=PIPELINEID::${{ secrets.DEV_PIPELINEID}}"
-  #         elif [[ "${{ github.base_ref }}" == *"sit" ]]; then
-  #           echo "::set-output name=PIPELINEID::${{ secrets.SIT_PIPELINEID}}"
-  #         elif [[ "${{ github.base_ref }}" == *"uat" ]]; then
-  #           echo "::set-output name=PIPELINEID::${{ secrets.UAT_PIPELINEID}}"
-  #         elif [[ "${{ github.base_ref }}" == *"stage" ]]; then
-  #           echo "::set-output name=PIPELINEID::${{ secrets.STAGE_PIPELINEID}}"
-  #         fi
+  testSlug:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "$GITHUB_REF_SLUG"
           
   dev-sync-deploy-verify-job: 
     needs: [initVariables]  
@@ -32,7 +19,4 @@ jobs:
     with:
       BRANCH: dev      
       SHOULD_TRIGGER_PIPELINE: false
-    secrets: inherit
-      PIPELINEID: ${{ secrets.DEV_PIPELINEID }}
-
-
+    secrets: inherit     
