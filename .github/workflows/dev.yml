@@ -18,11 +18,11 @@ jobs:
         run: |
           if [[ "${{ github.ref }}" == *"dev" ]]; then
             echo "::set-output name=PIPELINEID::${{ secrets.DEV_PIPELINEID}}"
-          else if [[ "${{ github.base_ref }}" == *"sit" ]]; then
+          elif [[ "${{ github.base_ref }}" == *"sit" ]]; then
             echo "::set-output name=PIPELINEID::${{ secrets.SIT_PIPELINEID}}"
-          else if [[ "${{ github.base_ref }}" == *"uat" ]]; then
+          elif [[ "${{ github.base_ref }}" == *"uat" ]]; then
             echo "::set-output name=PIPELINEID::${{ secrets.UAT_PIPELINEID}}"
-          else if [[ "${{ github.base_ref }}" == *"stage" ]]; then
+          elif [[ "${{ github.base_ref }}" == *"stage" ]]; then
             echo "::set-output name=PIPELINEID::${{ secrets.STAGE_PIPELINEID}}"
           fi
           
