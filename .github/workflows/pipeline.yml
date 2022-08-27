@@ -21,15 +21,15 @@ jobs:
           echo "::set-output name=BRANCH::dev"
           echo "::set-output name=SHOULD_TRIGGER_PIPELINE::false"
           echo "::set-output name=VERIFY_URL::http://dev.com"
-        elif [[ "${{ github.base_ref }}" == *"sit" ]]; then
+        elif [[ "${{ github.ref }}" == *"sit" ]]; then
           echo "::set-output name=BRANCH::sit"
           echo "::set-output name=SHOULD_TRIGGER_PIPELINE::false"
           echo "::set-output name=VERIFY_URL::http://sit.com"
-        elif [[ "${{ github.base_ref }}" == *"uat" ]]; then
+        elif [[ "${{ github.ref }}" == *"uat" ]]; then
           echo "::set-output name=BRANCH::uat"
           echo "::set-output name=SHOULD_TRIGGER_PIPELINE::false"
           echo "::set-output name=VERIFY_URL::http://uat.com"
-        elif [[ "${{ github.base_ref }}" == *"stage" ]]; then
+        elif [[ "${{ github.ref }}" == *"stage" ]]; then
           echo "::set-output name=BRANCH::stage"
           echo "::set-output name=SHOULD_TRIGGER_PIPELINE::true"
           echo "::set-output name=VERIFY_URL::http://stage.com"
