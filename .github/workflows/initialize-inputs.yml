@@ -43,3 +43,9 @@ jobs:
           echo "::set-output name=SHOULD_TRIGGER_PIPELINE::true"
           echo "::set-output name=VERIFY_URL::http://stage.com"
         fi
+
+    - name: Print the outputs
+      run: |
+        echo "BRANCH: ${{steps.initVars.outputs.BRANCH}}"
+        echo "SHOULD_TRIGGER_PIPELINE: ${{steps.initVars.outputs.SHOULD_TRIGGER_PIPELINE}}"
+        echo "VERIFY_URL: ${{steps.initVars.outputs.VERIFY_URL}}"
