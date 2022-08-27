@@ -30,6 +30,9 @@ jobs:
     needs: [initVariables]  
     uses: ./.github/workflows/sync-deploy-verify.yml
     with:
-      BRANCH: dev
-      PIPELINEID: ${{ secrets.DEV_PIPELINEID }}
+      BRANCH: dev      
       SHOULD_TRIGGER_PIPELINE: false
+    secrets: inherit
+      PIPELINEID: ${{ secrets.DEV_PIPELINEID }}
+
+
