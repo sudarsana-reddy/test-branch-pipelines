@@ -1,0 +1,45 @@
+name: Dev Pipeline
+
+on:
+  push:
+    branches: ['dev', 'sit', 'uat', 'stage']  
+  workflow_dispatch:
+
+jobs:
+
+  initJob:
+    runs-on: ubuntu-latest
+    outputs:
+      SHOULD_TRIGGER_PIPELINE: ${{ steps.initVars.outputs.SHOULD_TRIGGER_PIPELINE}}
+      BRANCH: ${{steps.initVars.outputs.BRANCH}}
+      VERIFY_URL: ${{steps.initVars.outputs.VERIFY_URL}}
+    steps:
+    - name: initalize Inputs
+      id: initVars
+      run: |  
+        if [[ "${{ github.ref }}" == *"dev" ]]; then
+          echo "::set-output name=BRANCH::dev"
+          echo "::set-output name=SHOULD_TRIGGER_PIPELINE::false"
+          echo "::set-output name=VERIFY_URL::http://dev.com"
+        elif [[ "${{ github.ref }}" == *"sit" ]]; then
+          echo "::set-output name=BRANCH::sit"
+          echo "::set-output name=SHOULD_TRIGGER_PIPELINE::false"
+          echo "::set-output name=VERIFY_URL::http://sit.com"
+        elif [[ "${{ github.ref }}" == *"uat" ]]; then
+          echo "::set-output name=BRANCH::uat"
+          echo "::set-output name=SHOULD_TRIGGER_PIPELINE::false"
+          echo "::set-output name=VERIFY_URL::http://uat.com"
+        elif [[ "${{ github.ref }}" == *"stage" ]]; then
+          echo "::set-output name=BRANCH::stage"
+          echo "::set-output name=SHOULD_TRIGGER_PIPELINE::true"
+          echo "::set-output name=VERIFY_URL::http://stage.com"
+        fi
+          
+  sync-deploy-verify-job: 
+    needs: [initJob]  
+    uses: ./.github/workflows/sync-deploy-verify.yml
+    with:
+      BRANCH: ${{ needs.initJob.outputs.BRANCH}}      
+      SHOULD_TRIGGER_PIPELINE: ${{ needs.initJob.outputs.SHOULD_TRIGGER_PIPELINE}}  
+      VERIFY_URL: ${{ needs.initJob.outputs.VERIFY_URL}}
+    secrets: inherit     
