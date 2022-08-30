@@ -10,7 +10,7 @@ on:
       
       SHOULD_TRIGGER_PIPELINE:
         description: "shoudl trigger a new deployment"
-        type: boolean
+        type: string
         required: true        
       
       VERIFY_URL:
