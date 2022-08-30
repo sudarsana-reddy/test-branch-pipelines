@@ -26,6 +26,10 @@ jobs:
     - name: initalize Inputs
       id: initVars
       run: |  
+        echo ${{ github.ref }}
+        echo ${{ github.ref_name }}
+        echo ${{ github.event_name }}
+        
         if [[ "${{ github.ref_name }}" == *"dev" ]]; then
           echo "::set-output name=BRANCH::dev"
           echo "::set-output name=SHOULD_TRIGGER_PIPELINE::false"
