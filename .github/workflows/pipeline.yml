@@ -3,6 +3,8 @@ name: Pipeline
 on:
   push:
     branches: ['dev', 'sit', 'uat', 'stage']  
+  pull_request:
+    branches: ['dev', 'sit']
   workflow_dispatch:
 
 jobs:
