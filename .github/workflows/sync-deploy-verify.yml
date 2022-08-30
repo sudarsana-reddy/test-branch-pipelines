@@ -39,6 +39,7 @@ jobs:
   DeployJob:
     needs: [SyncJob]
     runs-on: ubuntu-latest
+    if: ${{ contains( fromJson('["refs/heads/dev", "refs/heads/sit"]'), github.ref) }}
     steps:
       - name: deploy
         run: |
