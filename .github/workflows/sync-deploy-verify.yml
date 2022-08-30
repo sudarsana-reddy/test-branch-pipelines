@@ -11,7 +11,7 @@ on:
       SHOULD_TRIGGER_PIPELINE:
         description: "shoudl trigger a new deployment"
         type: string
-        required: true
+        required: true        
       
       VERIFY_URL:
         description: "Post deploy verify url"
@@ -39,6 +39,7 @@ jobs:
   DeployJob:
     needs: [SyncJob]
     runs-on: ubuntu-latest
+    if: ${{ contains( fromJson('["refs/heads/dev", "refs/heads/sit"]'), github.ref) }}
     steps:
       - name: deploy
         run: |

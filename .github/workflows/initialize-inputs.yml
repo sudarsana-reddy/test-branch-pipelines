@@ -9,11 +9,11 @@ on:
       
       SHOULD_TRIGGER_PIPELINE:
         description: "shoudl trigger a new deployment"
-        value: ${{ jobs.initJob.outputs.SHOULD_TRIGGER_PIPELINE}}
+        value: ${{ jobs.initJob.outputs.SHOULD_TRIGGER_PIPELINE}}        
       
       VERIFY_URL:
         description: "Post deploy verify url"
-        value: ${{ jobs.initJob.outputs.VERIFY_URL}}
+        value: ${{ jobs.initJob.outputs.VERIFY_URL}}        
  
 jobs:
   initJob:
