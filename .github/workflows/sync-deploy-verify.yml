@@ -31,6 +31,7 @@ jobs:
         if: ${{ inputs.BRANCH == 'dev' }}
         run: |
           echo "Should run only for Dev"
+          echo ${{ github.ref_name }}
           
       - name: notiofication
         run: |
@@ -39,7 +40,7 @@ jobs:
   DeployJob:
     needs: [SyncJob]
     runs-on: ubuntu-latest
-    if: ${{ contains( fromJson('["refs/heads/dev", "refs/heads/sit"]'), github.ref) }}
+    if: ${{ contains( fromJson('["dev", "sit"]'), inputs.BRANCH)  && github.event_name != 'pull_request' }} 
     steps:
       - name: deploy
         run: |
