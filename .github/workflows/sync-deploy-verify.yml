@@ -40,7 +40,7 @@ jobs:
   DeployJob:
     needs: [SyncJob]
     runs-on: ubuntu-latest
-    if: ${{ contains( fromJson('["dev", "sit"]'), inputs.BRANCH)  && event_name != 'pull_request' }} 
+    if: ${{ contains( fromJson('["dev", "sit"]'), inputs.BRANCH)  && github.event_name != 'pull_request' }} 
     steps:
       - name: deploy
         run: |
