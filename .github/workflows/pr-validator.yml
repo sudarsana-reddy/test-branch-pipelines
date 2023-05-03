@@ -1,0 +1,27 @@
+name: PR Validator
+
+on:
+  pull_request:
+
+jobs:
+  PR-Validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Check for main
+        if: github.base_ref == 'main' && github.head_ref != 'stage'
+        run: |
+          echo "Error: You can only merge to main from stage
+          exit 1;
+          
+      - name: PR Check for stage
+        if: github.base_ref == 'stage' && github.head_ref != 'uat'
+        run: |
+          echo "Error: You can only merge to stage from uat
+          exit 1;
+          
+      - name: PR Check for uat
+        if: github.base_ref == 'uat' && github.head_ref != 'dev'
+        run: |
+          echo "Error: You can only merge to uat from dev
+          exit 1;      
+   
