@@ -33,7 +33,7 @@ jobs:
           echo "Should run only for Dev"
           echo ${{ github.ref_name }}
 
-      - name: story board task
+      - name: UAT-File Change Task
         if: ${{ inputs.BRANCH == 'uat' }}
         run: |
           echo "Should run only for uat"
