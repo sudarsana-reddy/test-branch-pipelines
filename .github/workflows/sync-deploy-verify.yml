@@ -31,6 +31,17 @@ jobs:
         if: ${{ inputs.BRANCH == 'dev' }}
         run: |
           echo "Should run only for Dev"
+          echo ${{ github.ref_name }}
+
+      - name: UAT-File Change Task
+        if: ${{ inputs.BRANCH == 'uat' }}
+        run: |
+          echo "Should run only for uat"
+          echo ${{ github.ref_name }}
+          mv index.txt index_orginal.txt
+          mv index-test.txt index.txt
+          cat index.txt
+          ls -ltr
           
       - name: notiofication
         run: |
@@ -39,7 +50,7 @@ jobs:
   DeployJob:
     needs: [SyncJob]
     runs-on: ubuntu-latest
-    if: ${{ contains( fromJson('["refs/heads/dev", "refs/heads/sit"]'), github.ref) }}
+    if: ${{ contains( fromJson('["dev", "sit"]'), inputs.BRANCH)  && github.event_name != 'pull_request' }} 
     steps:
       - name: deploy
         run: |

@@ -1,8 +1,9 @@
-name: Pipeline
+name: Pipeline 
 
 on:
   push:
     branches: ['dev', 'sit', 'uat', 'stage']  
+  pull_request:    
   workflow_dispatch:
 
 jobs:
@@ -17,4 +18,4 @@ jobs:
       BRANCH: ${{ needs.initJob.outputs.BRANCH}}      
       SHOULD_TRIGGER_PIPELINE: ${{ needs.initJob.outputs.SHOULD_TRIGGER_PIPELINE}}  
       VERIFY_URL: ${{ needs.initJob.outputs.VERIFY_URL}}
-    secrets: inherit     
+    secrets: inherit
