@@ -23,6 +23,9 @@ jobs:
   SyncJob:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
       - name: sync job
         run: |
           echo "sync job is done for ${{ inputs.BRANCH }}"
@@ -40,8 +43,7 @@ jobs:
           echo ${{ github.ref_name }}
           echo "Present working directory"
           pwd
-          ls -ltr
-          cd test-branch-pipelines
+          ls -ltr         
           mv index.txt index_orginal.txt
           mv index-test.txt index.txt
           ls -ltr
