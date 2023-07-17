@@ -54,9 +54,16 @@ jobs:
           echo "contents of index.txt"
           cat index.txt
           
-      - name: notiofication
+      - name: notification
         run: |
           echo "notiofication is done. Status: ${{ job.status }}" 
+
+      - name: Verify content in another step
+        run: |
+          pwd
+          ls -ltr
+          cat ui.frontend/src/api/index.txt
+
           
   DeployJob:
     needs: [SyncJob]
