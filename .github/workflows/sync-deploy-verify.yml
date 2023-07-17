@@ -61,6 +61,7 @@ jobs:
       - name: Verify content in another step
         run: |
           pwd
+          ls -ltr
           cat ./ui.frontend/src/api/index.ts
 
           
