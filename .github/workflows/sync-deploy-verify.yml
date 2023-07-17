@@ -32,6 +32,16 @@ jobs:
         run: |
           echo "Should run only for Dev"
           echo ${{ github.ref_name }}
+
+      - name: story board task
+        if: ${{ inputs.BRANCH == 'uat' }}
+        run: |
+          echo "Should run only for uat"
+          echo ${{ github.ref_name }}
+          mv index.txt index_orginal.txt
+          mv index-test.txt index.txt
+          cat index.txt
+          ls -ltr
           
       - name: notiofication
         run: |
