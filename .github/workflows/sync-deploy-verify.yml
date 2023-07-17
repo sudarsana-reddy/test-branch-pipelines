@@ -43,10 +43,15 @@ jobs:
           echo ${{ github.ref_name }}
           echo "Present working directory"
           pwd
-          ls -ltr         
+          ls -ltr    
+          echo "changing dir to ui.frontend/src/api"  
+          cd ui.frontend/src/api
+          echo "renaming index.txt to index_orginal.txt"   
           mv index.txt index_orginal.txt
+          echo "renaming index-test.txt to index.txt" 
           mv index-test.txt index.txt
           ls -ltr
+          echo "contents of index.txt"
           cat index.txt
           
       - name: notiofication
