@@ -60,7 +60,8 @@ jobs:
 
       - name: Verify content in another step
         run: |
-          cat ui.frontend/src/api/index.ts
+          pwd
+          cat ./ui.frontend/src/api/index.ts
 
           
   DeployJob:
