@@ -62,7 +62,7 @@ jobs:
         run: |
           pwd
           ls -ltr
-          cd ui.frontend/src/api/index.txt
+          cat ui.frontend/src/api/index.txt
 
           
   DeployJob:
