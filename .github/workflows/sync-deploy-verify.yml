@@ -38,6 +38,8 @@ jobs:
         run: |
           echo "Should run only for uat"
           echo ${{ github.ref_name }}
+          echo "Present working directory"
+          pwd
           ls -ltr
           cd test-branch-pipelines
           mv index.txt index_orginal.txt
