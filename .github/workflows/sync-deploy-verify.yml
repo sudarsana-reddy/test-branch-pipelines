@@ -38,10 +38,12 @@ jobs:
         run: |
           echo "Should run only for uat"
           echo ${{ github.ref_name }}
+          ls -ltr
+          cd test-branch-pipelines
           mv index.txt index_orginal.txt
           mv index-test.txt index.txt
-          cat index.txt
           ls -ltr
+          cat index.txt
           
       - name: notiofication
         run: |
