@@ -2,7 +2,7 @@ name: Pipeline
 
 on:
   push:
-    branches: ['dev', 'sit', 'uat', 'stage']  
+    branches: ['dev', 'uat', 'stage', 'main']  
   pull_request:    
   workflow_dispatch:
 
@@ -15,7 +15,8 @@ jobs:
     needs: [initJob]  
     uses: ./.github/workflows/sync-deploy-verify.yml
     with:
-      BRANCH: ${{ needs.initJob.outputs.BRANCH}}      
-      SHOULD_TRIGGER_PIPELINE: ${{ needs.initJob.outputs.SHOULD_TRIGGER_PIPELINE}}  
-      VERIFY_URL: ${{ needs.initJob.outputs.VERIFY_URL}}
+      BRANCH: ${{ needs.initJob.outputs.BRANCH }}
+      ENVIRONMENT: ${{ needs.initJob.outputs.ENVIRONMENT }}      
+      SHOULD_TRIGGER_PIPELINE: ${{ needs.initJob.outputs.SHOULD_TRIGGER_PIPELINE }}  
+      VERIFY_URL: ${{ needs.initJob.outputs.VERIFY_URL }}
     secrets: inherit
