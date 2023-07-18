@@ -7,11 +7,16 @@ on:
         description: "branch name"
         type: string
         required: true
+
+      ENVIRONMENT:
+        description: "Environment name"
+        type: string
+        required: true
       
       SHOULD_TRIGGER_PIPELINE:
         description: "shoudl trigger a new deployment"
         type: string
-        required: true
+        required: true        
       
       VERIFY_URL:
         description: "Post deploy verify url"
@@ -23,6 +28,9 @@ jobs:
   SyncJob:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
       - name: sync job
         run: |
           echo "sync job is done for ${{ inputs.BRANCH }}"
@@ -31,31 +39,59 @@ jobs:
         if: ${{ inputs.BRANCH == 'dev' }}
         run: |
           echo "Should run only for Dev"
-          
-      - name: notiofication
+          echo ${{ github.ref_name }}
+
+      - name: UAT-File Change Task
+        if: ${{ inputs.BRANCH == 'uat' }}
         run: |
-          echo "notiofication is done. Status: ${{ job.status }}" 
+          echo "Should run only for uat"
+          echo ${{ github.ref_name }}
+          echo "Present working directory"
+          pwd
+          ls -ltr    
+          echo "changing dir to ui.frontend/src/api"  
+          cd ui.frontend/src/api
+          echo "renaming index.txt to index_orginal.txt"   
+          mv index.txt index_orginal.txt
+          echo "renaming index-test.txt to index.txt" 
+          mv index-test.txt index.txt
+          ls -ltr
+          echo "contents of index.txt"
+          cat index.txt
+          
+      # - name: notification
+      #   run: |
+      #     echo "notiofication is done. Status: ${{ job.status }}" 
+
+      # - name: Verify content in another step
+      #   run: |
+      #     pwd
+      #     ls -ltr
+      #     cat ui.frontend/src/api/index.txt
+
           
   DeployJob:
     needs: [SyncJob]
+    environment: ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
+    if: ${{ contains( fromJson('["dev", "uat", "stage", "main"]'), inputs.BRANCH)  && github.event_name != 'pull_request' }} 
     steps:
-      - name: deploy
+      - name: deploy to ${{ inputs.ENVIRONMENT }}
         run: |
-          echo "PIPELINEID: ${{ secrets[format('{0}_PIPELINEID', inputs.BRANCH)] }} && SHOULD_TRIGGER_PIPELINE: ${{ inputs.SHOULD_TRIGGER_PIPELINE }}"
+          echo "deploying to ${{ inputs.ENVIRONMENT  }}"
           
       - name: notification
         run: |
           echo "notification is done. Status: ${{ job.status }}"
           
-  Verify:
-    needs: [DeployJob]
-    runs-on: ubuntu-latest
-    steps:
-      - name: verify
-        run: |
-          echo "verify url: ${{ inputs.VERIFY_URL }}"
+  # Verify:
+  #   needs: [DeployJob]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: verify
+  #       run: |
+  #         echo "verify url: ${{ inputs.VERIFY_URL }}"
           
-      - name: notification
-        run: |
-          echo "notiofication is done. Status: ${{ job.status }}"
+  #     - name: notification
+  #       run: |
+  #         echo "notiofication is done. Status: ${{ job.status }}"
