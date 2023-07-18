@@ -7,6 +7,11 @@ on:
         description: "branch name"
         type: string
         required: true
+
+      ENVIRONMENT:
+        description: "Environment name"
+        type: string
+        required: true
       
       SHOULD_TRIGGER_PIPELINE:
         description: "shoudl trigger a new deployment"
@@ -54,38 +59,39 @@ jobs:
           echo "contents of index.txt"
           cat index.txt
           
-      - name: notification
-        run: |
-          echo "notiofication is done. Status: ${{ job.status }}" 
+      # - name: notification
+      #   run: |
+      #     echo "notiofication is done. Status: ${{ job.status }}" 
 
-      - name: Verify content in another step
-        run: |
-          pwd
-          ls -ltr
-          cat ui.frontend/src/api/index.txt
+      # - name: Verify content in another step
+      #   run: |
+      #     pwd
+      #     ls -ltr
+      #     cat ui.frontend/src/api/index.txt
 
           
   DeployJob:
     needs: [SyncJob]
+    environment: inputs.ENVIRONMENT
     runs-on: ubuntu-latest
-    if: ${{ contains( fromJson('["dev", "sit"]'), inputs.BRANCH)  && github.event_name != 'pull_request' }} 
+    if: ${{ contains( fromJson('["dev", "uat", "stage", "main"]'), inputs.BRANCH)  && github.event_name != 'pull_request' }} 
     steps:
       - name: deploy
         run: |
-          echo "PIPELINEID: ${{ secrets[format('{0}_PIPELINEID', inputs.BRANCH)] }} && SHOULD_TRIGGER_PIPELINE: ${{ inputs.SHOULD_TRIGGER_PIPELINE }}"
+          echo "deploying to ${{ inputs.ENVIRONMENT  }}"
           
       - name: notification
         run: |
           echo "notification is done. Status: ${{ job.status }}"
           
-  Verify:
-    needs: [DeployJob]
-    runs-on: ubuntu-latest
-    steps:
-      - name: verify
-        run: |
-          echo "verify url: ${{ inputs.VERIFY_URL }}"
+  # Verify:
+  #   needs: [DeployJob]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: verify
+  #       run: |
+  #         echo "verify url: ${{ inputs.VERIFY_URL }}"
           
-      - name: notification
-        run: |
-          echo "notiofication is done. Status: ${{ job.status }}"
+  #     - name: notification
+  #       run: |
+  #         echo "notiofication is done. Status: ${{ job.status }}"
