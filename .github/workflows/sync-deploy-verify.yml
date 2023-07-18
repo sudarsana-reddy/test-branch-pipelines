@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ contains( fromJson('["dev", "uat", "stage", "main"]'), inputs.BRANCH)  && github.event_name != 'pull_request' }} 
     steps:
-      - name: deploy
+      - name: deploy to ${{ inputs.ENVIRONMENT }}
         run: |
           echo "deploying to ${{ inputs.ENVIRONMENT  }}"
           
