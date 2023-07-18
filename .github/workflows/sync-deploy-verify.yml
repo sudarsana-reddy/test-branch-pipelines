@@ -72,7 +72,7 @@ jobs:
           
   DeployJob:
     needs: [SyncJob]
-    environment: inputs.ENVIRONMENT
+    environment: ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
     if: ${{ contains( fromJson('["dev", "uat", "stage", "main"]'), inputs.BRANCH)  && github.event_name != 'pull_request' }} 
     steps:
