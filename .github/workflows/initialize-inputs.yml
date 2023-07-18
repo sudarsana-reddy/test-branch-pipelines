@@ -25,6 +25,7 @@ jobs:
     outputs:
       SHOULD_TRIGGER_PIPELINE: ${{ steps.initVars.outputs.SHOULD_TRIGGER_PIPELINE}}
       BRANCH: ${{steps.initVars.outputs.BRANCH}}
+      ENVIRONMENT: ${{steps.initVars.outputs.ENVIRONMENT}}
       VERIFY_URL: ${{steps.initVars.outputs.VERIFY_URL}}
     steps:
     - name: initalize Inputs
