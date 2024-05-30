@@ -1,0 +1,20 @@
+name: 'Check Deployment Comment for Change Request Number'
+description: 'Ensures deployment comments include a change request number.'
+
+outputs:
+  valid:
+    description: 'Boolean indicating if the comment is valid'
+runs:
+  using: 'composite'
+  steps:
+    - name: Get deployment comment
+      id: cr_comment
+      run: echo "DEPLOY_COMMENT=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
+    - name: Check for Change Request Number
+      id: check_cr
+      run: |
+        if echo "${{ env.DEPLOY_COMMENT }}" | grep -qE "CR[0-9]+"; then
+          echo "::set-output name=valid::true"
+        else
+          echo "::set-output name=valid::false"
+          
