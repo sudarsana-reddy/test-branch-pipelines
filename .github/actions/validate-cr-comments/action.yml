@@ -7,6 +7,9 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: checkout
+        uses: actions/checkout@v4
+        
     - name: Get deployment comment
       id: cr_comment
       run: echo "DEPLOY_COMMENT=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
