@@ -22,7 +22,7 @@ runs:
         echo "valid=false" >> "$GITHUB_OUTPUT"
       fi
 
-  - name: Print the valid comment status
-    id: Print
-    run: echo "valid= '${{ steps.check_cr.outputs.valid}}'"
-    shell: bash
+  # - name: Print the valid comment status
+#   id: Print
+#   run: echo "valid= '${{ steps.check_cr.outputs.valid}}'"
+#   shell: bash
