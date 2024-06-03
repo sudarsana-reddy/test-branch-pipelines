@@ -19,7 +19,7 @@ runs:
     id: capture_comments
     uses: actions/github-script@v6
     with:
-      github-token: ${{ secrets.GITHUB_TOKEN }}
+      github-token: ${{ secrets.PAT }}
       script: |
         const deploymentId = context.payload.deployment.id;
         const comments = await github.rest.issues.listComments({
