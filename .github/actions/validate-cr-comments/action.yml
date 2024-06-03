@@ -19,7 +19,7 @@ runs:
     id: check_cr
     shell: bash
     run: |
-      if echo "${{ env.DEPLOY_COMMENT }}" | grep -qE "CR[0-9]+"; then
+      if echo "${{ env.DEPLOY_COMMENT }}" | grep -qE "CR-[0-9]+"; then
         echo "valid=true" >> "$GITHUB_OUTPUT"
       else
         echo "valid=false" >> "$GITHUB_OUTPUT"
