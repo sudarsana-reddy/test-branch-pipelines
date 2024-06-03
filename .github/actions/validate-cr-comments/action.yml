@@ -18,9 +18,8 @@ runs:
   - name: Capture deployment approval comments
     id: capture_comments
     uses: actions/github-script@v6
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     with:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
       script: |
         const deploymentId = context.payload.deployment.id;
         const comments = await github.rest.issues.listComments({
