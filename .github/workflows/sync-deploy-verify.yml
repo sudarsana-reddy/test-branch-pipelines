@@ -83,6 +83,10 @@ jobs:
         id: comments
         uses: ./.github/actions/validate-cr-comments
 
+      - name: Print the comment's validity
+        run: echo "Print - ${{ steps.comments.outputs.valid}}"
+        shell: bash
+
       - name: Fail if Comment is Invalid
         if: steps.comments.outputs.valid == 'false'
         run: |
@@ -90,7 +94,7 @@ jobs:
           exit 1
           
       - name: deploy to ${{ inputs.ENVIRONMENT }}
-        if: steps.check_comment.outputs.valid == 'true'
+        if: steps.comments.outputs.valid == 'true'
         run: |
           echo "deploying to ${{ inputs.ENVIRONMENT  }}"
           
