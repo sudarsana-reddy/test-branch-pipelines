@@ -2,16 +2,17 @@ name: sync-deploy-verify
 
 on:
   workflow_call:
-    # inputs:
+    inputs:
     #   BRANCH:
     #     description: "branch name"
     #     type: string
     #     required: true
 
-    #   ENVIRONMENT:
-    #     description: "Environment name"
-    #     type: string
-    #     required: true
+      ENVIRONMENT:
+        description: "Environment name"
+        type: string
+        required: true
+        default: prod
       
     #   SHOULD_TRIGGER_PIPELINE:
     #     description: "shoudl trigger a new deployment"
