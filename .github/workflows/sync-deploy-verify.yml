@@ -90,7 +90,7 @@ jobs:
       - name: Fail if Comment is Invalid
         if: ${{ steps.comments.outputs.valid == 'false' }}
         run: |
-          echo "Deployment comment does not contain a Change Request number. Aborting deployment."
+          echo "Deployment comments does not contain a Change Request number. Aborting deployment."
           exit 1
           
       - name: deploy to ${{ inputs.ENVIRONMENT }}

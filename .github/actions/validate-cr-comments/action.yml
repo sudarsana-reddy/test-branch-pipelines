@@ -8,18 +8,36 @@ outputs:
 runs:
   using: 'composite'
   steps:
-  - name: Get deployment comment
-    id: cr_comment
-    shell: bash
-    run: |
-      echo "deployment comment=${{ github.event.head_commit.message }}"
-      echo "DEPLOY_COMMENT=${{ github.event.head_commit.message }}" >> "$GITHUB_ENV"
+  # - name: Get deployment comment
+  #   id: cr_comment
+  #   shell: bash
+  #   run: |
+  #     echo "deployment comment=${{ github.event.head_commit.message }}"
+  #     echo "DEPLOY_COMMENT=${{ github.event.head_commit.message }}" >> "$GITHUB_ENV"
+
+  - name: Capture deployment approval comments
+    id: capture_comments
+    uses: actions/github-script@v6
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      script: |
+        const deploymentId = context.payload.deployment.id;
+        const comments = await github.rest.issues.listComments({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: deploymentId,
+        });
+        console.log(`comments: ${comments}`)
+
+        core.setOutput('comments', comments.data.map(comment => comment.body).join("\n---\n"));
+
 
   - name: Check for Change Request Number
     id: check_cr
     shell: bash
     run: |
-      if echo "${{ env.DEPLOY_COMMENT }}" | grep -qE "CR-[0-9]+"; then
+      if echo "${{ steps.capture_comments.outputs.comments }}" | grep -qE "CR-[0-9]+"; then
         echo "valid=true" >> "$GITHUB_OUTPUT"
       else
         echo "valid=false" >> "$GITHUB_OUTPUT"
