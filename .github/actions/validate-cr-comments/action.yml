@@ -17,10 +17,25 @@ runs:
 
   - name: Capture deployment approval comments
     id: capture_comments
-    uses: actions/github-script@v6
+    uses: actions/github-script@v6   
     with:
       # github-token: ${{ secrets.PAT }}
-      script: "const { owner, repo } = context.repo;       \nconst response = await github.request('GET /repos/{owner}/{repo}/actions/runs/{runId}/approvals', {\n      owner: owner,\n      repo: repo,\n      runId: context.runId\n   });\n      #magic___^_^___line\nif (response.status === 200) {\n    const comments = response.data.approvals.map(approval => approval.comment);\n    console.log(JSON.stringify(comments, null, 2));\n    core.setOutput('comments',comments[0]);\n} else {\n    console.error(`Failed to fetch approval comments: ${response.status}`);\n}\n      #magic___^_^___line\n      #magic___^_^___line\n"
+      script: |
+        const { owner, repo } = context.repo;       
+        const response = await github.request('GET /repos/{owner}/{repo}/actions/runs/{runId}/approvals', {
+              owner: owner,
+              repo: repo,
+              runId: context.runId
+           });
+
+        if (response.status === 200) {
+            const comments = response.data.approvals.map(approval => approval.comment);
+            console.log(JSON.stringify(comments, null, 2));
+            core.setOutput('comments',comments[0]);
+        } else {
+            console.error(`Failed to fetch approval comments: ${response.status}`);
+        }
+
   - name: Check for Change Request Number
     id: check_cr
     shell: bash
