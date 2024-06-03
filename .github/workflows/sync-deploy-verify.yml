@@ -28,8 +28,8 @@ jobs:
   SyncJob:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
+      # - name: checkout
+      #   uses: actions/checkout@v3
 
       - name: sync job
         run: |
@@ -41,23 +41,23 @@ jobs:
           echo "Should run only for Dev"
           echo ${{ github.ref_name }}
 
-      - name: UAT-File Change Task
-        if: ${{ inputs.BRANCH == 'uat' }}
-        run: |
-          echo "Should run only for uat"
-          echo ${{ github.ref_name }}
-          echo "Present working directory"
-          pwd
-          ls -ltr    
-          echo "changing dir to ui.frontend/src/api"  
-          cd ui.frontend/src/api
-          echo "renaming index.txt to index_orginal.txt"   
-          mv index.txt index_orginal.txt
-          echo "renaming index-test.txt to index.txt" 
-          mv index-test.txt index.txt
-          ls -ltr
-          echo "contents of index.txt"
-          cat index.txt
+      # - name: UAT-File Change Task
+      #   if: ${{ inputs.BRANCH == 'uat' }}
+      #   run: |
+      #     echo "Should run only for uat"
+      #     echo ${{ github.ref_name }}
+      #     echo "Present working directory"
+      #     pwd
+      #     ls -ltr    
+      #     echo "changing dir to ui.frontend/src/api"  
+      #     cd ui.frontend/src/api
+      #     echo "renaming index.txt to index_orginal.txt"   
+      #     mv index.txt index_orginal.txt
+      #     echo "renaming index-test.txt to index.txt" 
+      #     mv index-test.txt index.txt
+      #     ls -ltr
+      #     echo "contents of index.txt"
+      #     cat index.txt
           
       # - name: notification
       #   run: |
@@ -84,7 +84,7 @@ jobs:
         uses: ./.github/actions/validate-cr-comments
 
       - name: Print the comment's validity
-        run: echo "Valid - ${{ steps.comments.outputs.valid }}"
+        run: echo "valid=${{ steps.comments.outputs.valid }}"
         shell: bash
 
       - name: Fail if Comment is Invalid

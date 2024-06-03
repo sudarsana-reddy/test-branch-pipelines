@@ -11,13 +11,15 @@ runs:
   - name: Get deployment comment
     id: cr_comment
     shell: bash
-    run: echo "DEPLOY_COMMENT=${{ github.event.head_commit.message }}" >> "$GITHUB_ENV"
+    run: |
+      echo "deployment comment=${{ github.event.head_commit.message }}"
+      echo "DEPLOY_COMMENT=${{ github.event.head_commit.message }}" >> "$GITHUB_ENV"
 
   - name: Check for Change Request Number
     id: check_cr
     shell: bash
     run: |
-      if echo "$DEPLOY_COMMENT" | grep -qE "CR[0-9]+"; then
+      if echo "${{ env.DEPLOY_COMMENT }}" | grep -qE "CR[0-9]+"; then
         echo "valid=true" >> "$GITHUB_OUTPUT"
       else
         echo "valid=false" >> "$GITHUB_OUTPUT"
@@ -25,5 +27,5 @@ runs:
 
   - name: Print the valid comment status
     id: Print
-    run: echo "valid= '${{ steps.check_cr.outputs.valid}}'"
+    run: echo "valid='${{ steps.check_cr.outputs.valid}}'"
     shell: bash
