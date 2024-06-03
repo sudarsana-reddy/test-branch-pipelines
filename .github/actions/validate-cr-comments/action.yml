@@ -1,9 +1,10 @@
 name: 'Check Deployment Comment for Change Request Number'
 description: 'Ensures deployment comments include a change request number.'
 
-# outputs:
-#   valid:
-#     description: 'Boolean indicating if the comment is valid'
+outputs:
+  valid:
+    description: 'Boolean indicating if the comment is valid'
+    value: ${{ steps.check_cr.outputs.valid }}
 runs:
   using: 'composite'
   steps:
