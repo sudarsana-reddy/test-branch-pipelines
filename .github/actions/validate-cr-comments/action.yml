@@ -1,9 +1,9 @@
 name: 'Check Deployment Comment for Change Request Number'
 description: 'Ensures deployment comments include a change request number.'
 
-outputs:
-  valid:
-    description: 'Boolean indicating if the comment is valid'
+# outputs:
+#   valid:
+#     description: 'Boolean indicating if the comment is valid'
 runs:
   using: 'composite'
   steps:
@@ -22,7 +22,7 @@ runs:
         echo "valid=false" >> "$GITHUB_OUTPUT"
       fi
 
-  # - name: Print the valid comment status
-#   id: Print
-#   run: echo "valid= '${{ steps.check_cr.outputs.valid}}'"
-#   shell: bash
+  - name: Print the valid comment status
+    id: Print
+    run: echo "valid= '${{ steps.check_cr.outputs.valid}}'"
+    shell: bash
