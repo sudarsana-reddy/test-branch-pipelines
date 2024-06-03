@@ -31,7 +31,7 @@ runs:
         console.log(`reponse: ${JSON.stringify(response.data, null, 2)}`);
 
         if (response.status === 200) {
-            const comments = response.data.approvals.map(approval => approval.comment);
+            const comments = response.data.map(approval => approval.comment);
             console.log(JSON.stringify(comments, null, 2));
             core.setOutput('comments',comments[0]);
         } else {
