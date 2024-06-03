@@ -2,38 +2,38 @@ name: sync-deploy-verify
 
 on:
   workflow_call:
-    inputs:
-      BRANCH:
-        description: "branch name"
-        type: string
-        required: true
+    # inputs:
+    #   BRANCH:
+    #     description: "branch name"
+    #     type: string
+    #     required: true
 
-      ENVIRONMENT:
-        description: "Environment name"
-        type: string
-        required: true
+    #   ENVIRONMENT:
+    #     description: "Environment name"
+    #     type: string
+    #     required: true
       
-      SHOULD_TRIGGER_PIPELINE:
-        description: "shoudl trigger a new deployment"
-        type: string
-        required: true        
+    #   SHOULD_TRIGGER_PIPELINE:
+    #     description: "shoudl trigger a new deployment"
+    #     type: string
+    #     required: true        
       
-      VERIFY_URL:
-        description: "Post deploy verify url"
-        type: string 
-        required: true
+    #   VERIFY_URL:
+    #     description: "Post deploy verify url"
+    #     type: string 
+    #     required: true
       
  
 jobs:
-  SyncJob:
-    runs-on: ubuntu-latest
-    steps:
-      # - name: checkout
-      #   uses: actions/checkout@v3
+  # SyncJob:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # - name: checkout
+  #     #   uses: actions/checkout@v3
 
-      - name: sync job
-        run: |
-          echo "sync job is done for ${{ inputs.BRANCH }}"
+  #     - name: sync job
+  #       run: |
+  #         echo "sync job is done for ${{ inputs.BRANCH }}"
           
       # - name: story board task
       #   if: ${{ inputs.BRANCH == 'dev' }}
@@ -71,7 +71,7 @@ jobs:
 
           
   DeployJob:
-    needs: [SyncJob]
+    # needs: [SyncJob]
     environment: ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
     if: ${{ contains( fromJson('["dev", "uat", "stage", "main"]'), inputs.BRANCH)  && github.event_name != 'pull_request' }} 

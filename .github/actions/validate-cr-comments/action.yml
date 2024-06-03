@@ -21,6 +21,7 @@ runs:
     with:
       # github-token: ${{ secrets.PAT }}
       script: |
+        console.log(JSON.stringify(context.payload, null, 2 ));
         const deploymentId = context.payload.deployment.id;
         const comments = await github.rest.issues.listComments({
           owner: context.repo.owner,
