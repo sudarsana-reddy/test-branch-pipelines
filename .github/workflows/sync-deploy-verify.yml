@@ -35,11 +35,11 @@ jobs:
         run: |
           echo "sync job is done for ${{ inputs.BRANCH }}"
           
-      - name: story board task
-        if: ${{ inputs.BRANCH == 'dev' }}
-        run: |
-          echo "Should run only for Dev"
-          echo ${{ github.ref_name }}
+      # - name: story board task
+      #   if: ${{ inputs.BRANCH == 'dev' }}
+      #   run: |
+      #     echo "Should run only for Dev"
+      #     echo ${{ github.ref_name }}
 
       # - name: UAT-File Change Task
       #   if: ${{ inputs.BRANCH == 'uat' }}
