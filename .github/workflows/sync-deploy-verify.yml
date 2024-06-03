@@ -84,7 +84,7 @@ jobs:
         uses: ./.github/actions/validate-cr-comments
 
       - name: Print the comment's validity
-        run: echo "Print - ${{ steps.comments.outputs.valid}}"
+        run: echo "Valid: - ${{ steps.comments.outputs.valid}}"
         shell: bash
 
       - name: Fail if Comment is Invalid
