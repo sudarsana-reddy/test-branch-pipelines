@@ -18,7 +18,7 @@ jobs:
   sync-deploy-verify-job: 
     # needs: [initJob]  
     uses: ./.github/workflows/sync-deploy-verify.yml
-    # with:
+    with:
       # BRANCH: ${{ needs.initJob.outputs.BRANCH }}
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}      
       # SHOULD_TRIGGER_PIPELINE: ${{ needs.initJob.outputs.SHOULD_TRIGGER_PIPELINE }}  
