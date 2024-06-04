@@ -52,3 +52,10 @@ runs:
     id: Print
     run: echo "valid='${{ steps.check_cr.outputs.valid}}'"
     shell: bash
+    
+  - name: Fail if Comment is Invalid
+    if: ${{ steps.comments.outputs.valid == 'false' }}
+    shell: bash
+    run: |
+      echo "Deployment comments does not contain a Change Request number. Aborting deployment."
+      exit 1
