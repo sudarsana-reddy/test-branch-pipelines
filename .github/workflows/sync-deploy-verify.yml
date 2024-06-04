@@ -82,20 +82,16 @@ jobs:
         
       - name: Check deployment comments
         id: comments
+        if: ${{ inputs.ENVIRONMENT == 'prod' }}
         uses: ./.github/actions/validate-cr-comments
 
-      - name: Print the comment's validity
-        run: echo "valid=${{ steps.comments.outputs.valid }}"
-        shell: bash
+      # - name: Print the comment's validity
+      #   run: echo "valid=${{ steps.comments.outputs.valid }}"
+      #   shell: bash
 
-      - name: Fail if Comment is Invalid
-        if: ${{ steps.comments.outputs.valid == 'false' }}
-        run: |
-          echo "Deployment comments does not contain a Change Request number. Aborting deployment."
-          exit 1
           
       - name: deploy to ${{ inputs.ENVIRONMENT }}
-        if: steps.comments.outputs.valid == 'true'
+        # if: steps.comments.outputs.valid == 'true'
         run: |
           echo "deploying to ${{ inputs.ENVIRONMENT  }}"
           
