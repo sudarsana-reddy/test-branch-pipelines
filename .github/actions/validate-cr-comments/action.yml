@@ -54,7 +54,7 @@ runs:
     shell: bash
     
   - name: Fail if Comment is Invalid
-    if: ${{ steps.comments.outputs.valid == 'false' }}
+    if: ${{ steps.check_cr.outputs.valid == 'false' }}
     shell: bash
     run: |
       echo "Deployment comments does not contain a Change Request number. Aborting deployment."
